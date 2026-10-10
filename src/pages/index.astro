@@ -37,9 +37,9 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
   description={siteConfig.hero.subheadline}
   schemaType="ProfilePage"
 >
-  <div class="space-y-12 pb-2 sm:space-y-16 sm:pb-4">
+  <div class="homepage-sections pb-2 sm:pb-4">
     {showHero && (
-      <section class="relative border-b border-paper-300/90 pb-9 pt-3 dark:border-ink-700 sm:pb-12 sm:pt-6">
+      <div class="relative pt-3 sm:pt-6">
       <div class="relative grid gap-6 lg:grid-cols-[minmax(0,1fr)_13rem] lg:items-start lg:gap-x-14">
         <div class="min-w-0 lg:col-start-1 lg:row-start-1">
           <h1 class="max-w-4xl font-heading text-[clamp(1.75rem,5vw,4.5rem)] font-semibold leading-[1] tracking-[-0.035em] text-ink-950 dark:text-paper-50">
@@ -74,7 +74,7 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
           )}
         </div>
 
-        <aside class="w-32 sm:w-40 lg:w-full lg:col-start-2 lg:row-span-2 lg:row-start-1" aria-label="Profile">
+        <aside class="w-32 sm:w-40 lg:w-52 lg:absolute lg:right-0 lg:top-0" aria-label="Profile">
           <div class="relative w-full shrink-0 overflow-hidden rounded-xl border border-paper-300/90 bg-white/70 p-1.5 shadow-paper dark:border-ink-700 dark:bg-ink-900/70 lg:p-2">
             <Image
               src={about.avatar}
@@ -111,7 +111,7 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
           )}
         </aside>
 
-        <div class="min-w-0 lg:col-start-1 lg:row-start-2">
+        <section id="about" aria-labelledby="about-heading" class="min-w-0 lg:col-start-1 lg:row-start-2">
           <h2 id="about-heading" class="page-title">About me</h2>
           <p class="mt-5 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
             {about.bio}
@@ -135,11 +135,15 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
               </ul>
             </div>
           )}
-        </div>
+        </section>
       </div>
-      </section>
+      </div>
     )}
 
     <ExperienceContent />
   </div>
 </Layout>
+
+<style>
+  .homepage-sections { --homepage-section-gap: 3rem; display: grid; gap: var(--homepage-section-gap); }
+</style>
