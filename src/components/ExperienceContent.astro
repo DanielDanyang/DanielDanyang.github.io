@@ -43,7 +43,7 @@ const service = cv.service ?? [];
         {research.map((entry) => (
           <article id={entry.project === "gpuweaver" ? "publications" : undefined} class:list={["cv-entry scroll-mt-24", entry.project === "gpuweaver" && "cv-publications"]}>
             <div class="cv-row">
-              <h3 class="entry-title text-lg">{entry.projectRecord?.data.title ?? entry.organization}</h3>
+              <h3 class="entry-title text-lg">{entry.project === "uccl" ? "Open-source Projects" : entry.project === "gpuweaver" ? "Publication" : entry.projectRecord?.data.title ?? entry.organization}</h3>
             </div>
             <p class="body-copy mt-1">{entry.role}</p>
             {entry.project === "gpuweaver" ? <PublicationList papers={papers.filter((paper) => paper.id === "chen2026gpuweaver")} /> : entry.projectRecord && <p class="body-copy mt-2 text-sm">{entry.projectRecord.data.summary}</p>}
