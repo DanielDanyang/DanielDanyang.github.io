@@ -9,6 +9,11 @@ import { withTrailingSlash } from "./src/lib/site-url";
 export default defineConfig({
 	site: withTrailingSlash(siteConfig.siteUrl),
 	trailingSlash: "always",
+  redirects: {
+    "/about/": "/experience/",
+    "/researches/": "/experience/#publications",
+    "/projects/": "/experience/#research",
+  },
 	integrations: [sitemap(), mdx()],
 	vite: {
 		build: {

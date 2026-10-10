@@ -45,6 +45,7 @@ export const aboutDataSchema = z
 						role: optionalText,
 						organization: optionalText,
 						period: optionalText,
+						project: optionalText,
 						bullets: z.array(contentTextSchema).optional(),
 					})
 					.strict(),

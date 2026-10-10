@@ -2,7 +2,7 @@ import { defineSiteConfig } from "./src/config/site";
 
 export const siteConfig = defineSiteConfig({
   author: "Danyang Chen",
-  title: "Danyang Chen · 陈丹阳",
+  title: "Danyang Chen (陈丹阳)",
   siteUrl: "https://danieldanyang.github.io",
   description: "Danyang Chen (陈丹阳), an undergraduate at CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen), currently a WeLM pretraining infrastructure intern at Tencent WXG (WeChat Group).",
   keywords: ["Danyang Chen", "陈丹阳", "large-scale pretraining infrastructure", "WeLM", "Tencent WXG"],
@@ -22,9 +22,7 @@ export const siteConfig = defineSiteConfig({
   ],
   navLinks: [
     { href: "/", label: "Home" },
-    { href: "/researches/", label: "Publications" },
-    { href: "/projects/", label: "Projects" },
-    { href: "/about/", label: "About" },
+    { href: "/experience/", label: "经历" },
     { href: "/personal/", label: "Personal" },
   ],
   ogImage: "/profile.jpg",
@@ -39,8 +37,8 @@ export const siteConfig = defineSiteConfig({
   },
   homeBlocks: {
     hero: { enabled: true },
-    showcase: { enabled: true, title: "Selected Projects", description: "Research & open source" },
-    publications: { enabled: true, title: "Selected Publication", description: "GPU fabrics and LLM systems" },
+    showcase: { enabled: false, title: "Selected Projects", description: "Research & open source" },
+    publications: { enabled: false, title: "Selected Publication", description: "GPU fabrics and LLM systems" },
     posts: { enabled: false },
   },
 });

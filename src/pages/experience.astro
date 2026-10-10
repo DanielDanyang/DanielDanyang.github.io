@@ -1,0 +1,134 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageJumpNav from "../components/PageJumpNav.astro";
+import PublicationList from "../components/PublicationList.astro";
+import { getCollection } from "astro:content";
+import { getAllPapers } from "../lib/papers";
+import { aboutDataSchema } from "../lib/about";
+import aboutRaw from "../data/about.yml?raw";
+import { parse } from "yaml";
+
+const cv = aboutDataSchema.parse(parse(aboutRaw));
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+const papers = getAllPapers();
+const experience = cv.experience ?? [];
+const industry = experience.filter((entry) => entry.organization?.startsWith("Tencent") || entry.organization === "Kling");
+const research = experience.filter((entry) => !industry.includes(entry)).map((entry) => ({
+  ...entry,
+  projectRecord: projects.find((project) => project.id === entry.project),
+}));
+const otherProjects = projects.filter((project) => !research.some((entry) => entry.project === project.id));
+const education = cv.education ?? [];
+const service = cv.service ?? [];
+const honors = (cv.sections ?? []).find((section) => section.title === "Selected Honors")?.items ?? [];
+const sections = [
+  { href: "#education", label: "Education" },
+  { href: "#publications", label: "Publications" },
+  { href: "#industry", label: "Internships" },
+  { href: "#research", label: "Research & Projects" },
+  { href: "#teaching", label: "Teaching & Honors" },
+];
+---
+
+<Layout title="经历 · Experience" description="Education, publications, internships, and research projects of Danyang Chen.">
+  <div class="page-stack cv-page">
+    <header class="page-header">
+      <h1 class="page-title">经历 <span class="text-ink-500 dark:text-paper-400">· Experience</span></h1>
+      <p class="page-description">Education, publications, internships, and research.</p>
+    </header>
+    <PageJumpNav items={sections} />
+
+    <div class="cv-sections">
+      <section id="education" class="cv-section">
+        <h2 class="section-heading cv-heading">Education</h2>
+        {education.map((entry) => (
+          <article class="cv-entry">
+            <div class="cv-row">
+              <h3 class="entry-title text-lg">{entry.institution}</h3>
+              <p class="cv-date">{entry.year}</p>
+            </div>
+            <p class="body-copy mt-1">{entry.degree}</p>
+          </article>
+        ))}
+      </section>
+
+      <section id="publications" class="cv-section cv-publications">
+        <h2 class="section-heading cv-heading">Publications</h2>
+        <PublicationList papers={papers} />
+      </section>
+
+      <section id="industry" class="cv-section">
+        <h2 class="section-heading cv-heading">Industry Experience</h2>
+        {industry.map((entry) => (
+          <article class="cv-entry">
+            <div class="cv-row">
+              <h3 class="entry-title text-lg">{entry.organization}</h3>
+              <p class="cv-date">{entry.period}</p>
+            </div>
+            <p class="body-copy mt-1">{entry.role}</p>
+            {entry.bullets?.length && <ul class="cv-bullets">{entry.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+          </article>
+        ))}
+      </section>
+
+      <section id="research" class="cv-section">
+        <h2 class="section-heading cv-heading">Research & Open Source</h2>
+        {research.map((entry) => (
+          <article class="cv-entry">
+            <div class="cv-row">
+              <h3 class="entry-title text-lg">{entry.projectRecord?.data.title ?? entry.organization}</h3>
+              <p class="cv-date">{entry.period}</p>
+            </div>
+            <p class="body-copy mt-1">{entry.role}{entry.projectRecord && entry.organization !== entry.projectRecord.data.title && <> · {entry.organization}</>}</p>
+            {entry.projectRecord && <p class="body-copy mt-2 text-sm">{entry.projectRecord.data.summary}</p>}
+            {entry.bullets?.length && <ul class="cv-bullets">{entry.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
+            {entry.projectRecord && (
+              <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                {entry.projectRecord.data.links.map((link) => <a class="action-link px-0 text-xs" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<span class="i-mdi:open-in-new text-xs" aria-hidden="true"></span></a>)}
+              </div>
+            )}
+          </article>
+        ))}
+        {otherProjects.map((project) => (
+          <article class="cv-entry">
+            <div class="cv-row"><h3 class="entry-title text-lg">{project.data.title}</h3><p class="cv-date">{project.data.period}</p></div>
+            <p class="body-copy mt-2">{project.data.summary}</p>
+            <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2">{project.data.links.map((link) => <a class="action-link px-0 text-xs" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>)}</div>
+          </article>
+        ))}
+      </section>
+
+      <section id="teaching" class="cv-section">
+        <h2 class="section-heading cv-heading">Teaching</h2>
+        {service.map((entry) => typeof entry === "string" ? <p class="body-copy">{entry}</p> : (
+          <article class="cv-entry">
+            <div class="cv-row"><h3 class="entry-title text-base">{entry.role}</h3><p class="cv-date">{entry.period}</p></div>
+            <p class="body-copy mt-1 text-sm">{entry.organization}</p>
+          </article>
+        ))}
+      </section>
+
+      <section class="cv-section">
+        <h2 class="section-heading cv-heading">Selected Honors</h2>
+        <ul class="cv-bullets">{honors.map((item) => <li>{typeof item === "string" ? item : item.title}</li>)}</ul>
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .cv-sections { display: grid; gap: 3rem; }
+  .cv-section { scroll-margin-top: 8rem; }
+  .cv-heading { border-bottom: 1px solid; border-color: var(--cv-border); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+  .cv-page { --cv-border: #d9d5c9; }
+  :global(.dark) .cv-page { --cv-border: #434844; }
+  .cv-entry + .cv-entry { margin-top: 1.75rem; }
+  .cv-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .cv-date { flex-shrink: 0; font-family: monospace; font-size: .8125rem; color: #68706b; }
+  :global(.dark) .cv-date { color: #b9c0b9; }
+  .cv-bullets { list-style: disc; padding-left: 1.2rem; margin-top: .65rem; font-size: .9375rem; line-height: 1.7; }
+  .cv-bullets li + li { margin-top: .25rem; }
+  .cv-publications :global([data-publication-list]) { border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+  .cv-publications :global([data-publication-list] article) { padding-left: 0; padding-right: 0; }
+  @media (max-width: 639px) { .cv-row { flex-direction: column; gap: .35rem; } }
+</style>

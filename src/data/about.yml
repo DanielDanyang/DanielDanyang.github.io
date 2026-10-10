@@ -1,6 +1,6 @@
 profile:
   - label: Name
-    value: Danyang Chen · 陈丹阳
+    value: Danyang Chen (陈丹阳)
   - label: Current Role
     value: WeLM Pretraining Infrastructure Intern, Tencent WXG (WeChat Group)
   - label: Focus
@@ -31,12 +31,14 @@ experience:
       - Advised by Yang Zhou; worked on communication infrastructure for ML systems.
   - role: Core Contributor
     organization: UCCL
+    project: uccl
     period: September 2025–June 2026
     bullets:
       - Contributed to expert-parallel communication and point-to-point GPU transport.
       - Worked on GPUDirectTCPX and NIXL integration.
   - role: Undergraduate Researcher
     organization: CUHK-Shenzhen
+    project: gpuweaver
     period: January–May 2026
     bullets:
       - Advised by Yunming Xiao; studied GPU fabric contention and scheduling for LLM systems.
