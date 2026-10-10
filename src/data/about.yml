@@ -25,9 +25,6 @@ experience:
   - role: Core Contributor
     organization: UCCL
     project: uccl
-    bullets:
-      - Contributed to expert-parallel communication and point-to-point GPU transport.
-      - Worked on GPUDirectTCPX and NIXL integration.
   - role: Undergraduate Researcher
     organization: CUHK-Shenzhen
     project: gpuweaver
