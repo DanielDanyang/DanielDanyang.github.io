@@ -17,8 +17,8 @@ pnpm dev
 
 - `site.config.ts`：姓名、简介、研究方向、联系方式、导航。
 - `src/data/publications.bib`：论文。
-- `src/data/about.yml`：教育、经历、助教与荣誉；研究经历的 `project` 对应项目文件名。
-- `src/components/ExperienceContent.astro`：在首页展示教育、论文、实习、研究/开源项目、助教与荣誉。
+- `src/data/about.yml`：教育、经历与助教；研究经历的 `project` 对应项目文件名。
+- `src/components/ExperienceContent.astro`：在首页展示实习、学术/开源工作、论文、教育与简短助教经历。
 - `src/content/projects/*.md`：项目。
 - `src/pages/personal.astro`：个人分页面。
 - `public/profile.jpg`：首页个人照片。

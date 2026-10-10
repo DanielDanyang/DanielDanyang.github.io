@@ -24,11 +24,6 @@ experience:
   - role: Pretraining Infrastructure Intern
     organization: Kling
     period: Summer 2026
-  - role: Visiting Research Student
-    organization: University of California, Davis
-    period: Spring 2026
-    bullets:
-      - Advised by Yang Zhou; worked on communication infrastructure for ML systems.
   - role: Core Contributor
     organization: UCCL
     project: uccl
@@ -53,11 +48,3 @@ service:
   - role: Teaching Assistant — Introduction to Computer Science
     organization: CUHK-Shenzhen
     period: Fall 2024
-
-sections:
-  - title: Selected Honors
-    icon: i-mdi:trophy-award
-    items:
-      - Undergraduate Research Award
-      - Dean’s List, 2023–2024 and 2024–2025
-      - Outstanding Teaching Assistant Award
