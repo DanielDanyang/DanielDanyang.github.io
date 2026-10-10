@@ -18,14 +18,10 @@ const research = experience.filter((entry) => entry.project === "uccl" || entry.
 const service = cv.service ?? [];
 ---
 
-<section id="experience" aria-labelledby="experience-heading" class="page-stack cv-page scroll-mt-24">
-    <header class="page-header">
-      <h2 id="experience-heading" class="page-title">Experience</h2>
-    </header>
-
+<div id="experience" class="cv-page scroll-mt-24">
     <div class="cv-sections">
       <section id="industry" class="cv-section">
-        <h2 class="section-heading cv-heading">Industry Experience</h2>
+        <h2 class="page-title cv-heading">Industry Experience</h2>
         {industry.map((entry) => (
           <article class="cv-entry">
             <div class="cv-row">
@@ -39,11 +35,11 @@ const service = cv.service ?? [];
       </section>
 
       <section id="research" class="cv-section">
-        <h2 class="section-heading cv-heading">Academic Experience</h2>
+        <h2 class="page-title cv-heading">Academic Experience</h2>
         {research.map((entry) => (
           <article id={entry.project === "gpuweaver" ? "publications" : entry.project === "uccl" ? "uccl" : undefined} class:list={["cv-entry scroll-mt-24", entry.project === "gpuweaver" && "cv-publications"]}>
             <div class:list={["cv-row", entry.project === "uccl" && "uccl-heading"]}>
-              <h3 class="entry-title text-lg">{entry.project === "uccl" ? "UCCL" : entry.project === "gpuweaver" ? "Publication" : entry.projectRecord?.data.title ?? entry.organization}</h3>
+              <h3 class="section-heading">{entry.project === "uccl" ? <>UCCL<span class="uccl-intro font-sans">: an efficient communication library for GPUs, covering collectives, P2P, and EP</span></> : entry.project === "gpuweaver" ? "Publication" : entry.projectRecord?.data.title ?? entry.organization}</h3>
               {entry.project === "uccl" && <>
                 <a class="action-link px-0 uccl-github" href="https://github.com/uccl-project/uccl" target="_blank" rel="noopener noreferrer">
                   GitHub
@@ -53,7 +49,7 @@ const service = cv.service ?? [];
               </>}
             </div>
             {entry.project !== "gpuweaver" && entry.project !== "uccl" && <p class="body-copy mt-1">{entry.role}</p>}
-            {entry.project === "gpuweaver" ? <PublicationList papers={papers} /> : entry.projectRecord && <p class="body-copy mt-2 text-sm">{entry.projectRecord.data.summary}</p>}
+            {entry.project === "gpuweaver" ? <PublicationList papers={papers} /> : entry.projectRecord && entry.project !== "uccl" && <p class="body-copy mt-2 text-sm">{entry.projectRecord.data.summary}</p>}
             {entry.bullets?.length && <ul class="cv-bullets">{entry.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
             {entry.projectRecord && entry.project !== "gpuweaver" && entry.project !== "uccl" && (
               <div class="mt-3 flex flex-wrap gap-x-5 gap-y-2">
@@ -65,7 +61,7 @@ const service = cv.service ?? [];
       </section>
 
       <section id="teaching" class="cv-section">
-        <h2 class="section-heading cv-heading">Teaching</h2>
+        <h2 class="page-title cv-heading">Teaching</h2>
         <p class="body-copy mb-3 text-sm">Teaching Assistant at CUHK-Shenzhen.</p>
         <ul class="m-0 list-none space-y-2 p-0">
           {service.map((entry) => typeof entry === "string" ? <li class="body-copy text-sm">{entry}</li> : (
@@ -77,7 +73,7 @@ const service = cv.service ?? [];
         </ul>
       </section>
     </div>
-</section>
+</div>
 
 <style>
   .cv-sections { display: grid; gap: 3rem; }
@@ -87,7 +83,8 @@ const service = cv.service ?? [];
   :global(.dark) .cv-page { --cv-border: #434844; }
   .cv-entry + .cv-entry { margin-top: 1.75rem; }
   .cv-row { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
-  .uccl-heading { flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: .5rem 1rem; }
+  .uccl-heading { flex-wrap: wrap; align-items: baseline; justify-content: flex-start; gap: .75rem 1rem; }
+  .uccl-intro { font-size: 1rem; font-weight: 400; line-height: 1.75; letter-spacing: normal; }
   .uccl-github { display: inline-flex; align-items: center; gap: .5rem; font-size: .8125rem; }
   .uccl-github img { height: 20px; width: auto; }
   .cv-date { flex-shrink: 0; font-family: monospace; font-size: .8125rem; color: #68706b; }
