@@ -40,7 +40,11 @@ import duel from "../assets/personal/football-duel.jpg";
     <section id="football" aria-labelledby="football-heading" class="personal-section">
       <p class="eyebrow">03 / Football</p>
       <h2 id="football-heading" class="section-heading">Football</h2>
-      <p class="body-copy mt-4 max-w-3xl">I play as a defensive midfielder. As a regular starter for my college team, I helped us win the university championship. I am also a Bayern Munich fan.</p>
+      <div class="football-intro">
+        <p class="body-copy">I play as a defensive midfielder.</p>
+        <p class="body-copy">I won the university championship as a regular starter for my college team.</p>
+        <p class="body-copy">I am also a Bayern Munich fan.</p>
+      </div>
       <div class="football-gallery">
         <Image src={champions} alt="Our college team celebrating with the championship trophy" width={1280} format="webp" class="champions-photo" />
         <Image src={match} alt="A moment from a university football match" width={760} format="webp" class="match-photo" />
@@ -57,6 +61,8 @@ import duel from "../assets/personal/football-duel.jpg";
   :global(.dark) .personal-section { border-color: #434844; }
   .anime-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.5fr); gap: 3rem; align-items: center; }
   .anime-photo { width: 100%; max-width: 360px; height: auto; border-radius: 1rem; }
+  .football-intro { display: grid; gap: .5rem; margin-top: 1rem; max-width: 72ch; }
+  .football-intro p { margin: 0; text-wrap: pretty; }
   .football-gallery { display: grid; grid-template-columns: 1.08fr 1fr; gap: 1rem; margin-top: 1.75rem; }
   .football-gallery img { width: 100%; height: auto; border-radius: .8rem; }
   .champions-photo { grid-column: 1 / -1; }
