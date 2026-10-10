@@ -23,7 +23,6 @@ export const siteConfig = defineSiteConfig({
   ],
   navLinks: [
     { href: "/", label: "Home" },
-    { href: "/#experience", label: "Experience" },
     { href: "/personal/", label: "Personal" },
   ],
   ogImage: "/profile.jpg",
