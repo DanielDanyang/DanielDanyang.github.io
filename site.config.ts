@@ -19,6 +19,7 @@ export const siteConfig = defineSiteConfig({
   socialLinks: [
     { label: "GitHub", href: "https://github.com/DanielDanyang", icon: "i-mdi:github" },
     { label: "Email", href: "mailto:danyangchen@link.cuhk.edu.cn", icon: "i-mdi:email-outline" },
+    { label: "Google Scholar", href: "https://scholar.google.com/citations?user=0W3MJCUAAAAJ&hl=en", icon: "i-academicons:google-scholar" },
     { label: "Zhihu", href: "https://www.zhihu.com/people/daniel-87-41-57", icon: "i-mdi:link-variant" },
   ],
   navLinks: [
