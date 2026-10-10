@@ -113,7 +113,7 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
               layout="constrained"
               fit="cover"
               priority
-              class="aspect-square h-auto w-full rounded-lg object-cover"
+              class="h-auto w-full rounded-lg object-cover"
             />
           </div>
           {statusBadge && (
@@ -156,6 +156,11 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
 		  <p class="mt-5 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
 			{about.bio}
 		  </p>
+          <p class="mt-4 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
+            During my undergraduate studies, I have been fortunate to be advised by{" "}
+            <a href="https://yangzhou1997.github.io/" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-700 underline decoration-accent-300 underline-offset-4 dark:text-accent-300 dark:decoration-accent-700">Yang Zhou</a>{" "}and{" "}
+            <a href="https://yunmingxiao.github.io/" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-700 underline decoration-accent-300 underline-offset-4 dark:text-accent-300 dark:decoration-accent-700">Yunming Xiao</a>.
+          </p>
 
           {researchInterests.length > 0 && (
             <div class="mt-6 border-t border-paper-300/80 pt-4 dark:border-ink-700/80" aria-label="Research interests">

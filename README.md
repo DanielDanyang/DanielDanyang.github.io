@@ -20,7 +20,7 @@ pnpm dev
 - `src/data/about.yml`：教育、经历、助教与荣誉。
 - `src/content/projects/*.md`：项目。
 - `src/pages/personal.astro`：个人分页面。
-- `public/profile.svg`：目前是 DC 字母头像，之后可换照片。
+- `public/profile.jpg`：首页个人照片。
 
 仅摘录 CV 中适合展示的部分；原始 CV、手机号与详细实习数据没有包含在网站里。
 
