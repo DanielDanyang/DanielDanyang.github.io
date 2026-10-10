@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 const { project } = Astro.props as { project: CollectionEntry<"projects"> };
 const { Content } = await render(project);
 const { data } = project;
-const status = data.status[0].toUpperCase() + data.status.slice(1);
+const status = data.status === "unspecified" ? "Open source" : "Research";
 ---
 
 <Layout
@@ -27,11 +27,11 @@ const status = data.status[0].toUpperCase() + data.status.slice(1);
   imageHeight={data.cover?.height}
 >
   <DetailShell
-    backHref="/projects"
+    backHref="/projects/"
     backLabel="All projects"
     title={data.title}
     summary={data.summary}
-    transitionKey={`project-${project.id}`}
+    transitionKey={`project-${project.id}/`}
     cover={data.cover}
     coverAlt={data.coverAlt}
     facts={[

@@ -32,7 +32,6 @@ export interface Props {
 const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
 const isHomePage = currentPath === "/";
 const {
-  contentSource,
   title,
   description,
   image,
@@ -133,7 +132,6 @@ function isActiveNav(href: string): boolean {
       content="width=device-width, initial-scale=1, viewport-fit=cover"
     />
     <meta name="generator" content={Astro.generator} />
-    {contentSource && <meta name="content-source" content={encodeURIComponent(contentSource)} />}
     <link
       rel="sitemap"
       href={buildAbsoluteUrl("/sitemap-index.xml", siteConfig.siteUrl)}

@@ -1,118 +1,41 @@
-/**
- * Scholar Pages - primary configuration
- *
- * Start here for identity, profile, links, and page introductions.
- * Publications, CV records, projects, courses, and posts live in src/data
- * and src/content so this file stays quick to scan.
- */
 import { defineSiteConfig } from "./src/config/site";
 
 export const siteConfig = defineSiteConfig({
-	// Required: the four values most sites should personalize first.
-	author: "Mira Latticewell",
-	siteUrl: "https://astro-theme-scholars.pages.dev",
-	hero: {
-		headline:
-			"Fictional research on learning systems, shared archives, and humane web infrastructure.",
-		subheadline:
-			"Mira Latticewell is an entirely fictional scholar created to demonstrate this academic portfolio theme.",
-		profileImage: "/profile.svg",
-		profileAlt: "Abstract illustration representing the fictional researcher Mira Latticewell",
-		statusBadge: "Fictional demo profile",
-	},
-
-	// Common profile and discovery settings.
-	description:
-		"An entirely fictional academic profile demonstrating the Scholar Pages Astro theme.",
-	keywords: [
-		"synthetic learning environments",
-		"fictional archives",
-		"humane web infrastructure",
-		"academic website",
-		"demo profile",
-	],
-	// Optional social-preview overrides:
-	// language: "en",
-	// locale: "en_US",
-	// ogImage: "/social-card.png", // Prefer a 1200 × 630 raster image.
-	// ogImageAlt: "Scholar name - academic portfolio",
-	// ogImageWidth: 1200,
-	// ogImageHeight: 630,
-	affiliations: [
-		{
-			role: "Fictional Associate Professor",
-			department: "School of Imaginary Systems",
-			institution: "Northstar Commons University (fictional)",
-		},
-	],
-	researchInterests: [
-		"Synthetic Learning Environments",
-		"Speculative Interfaces",
-		"Fictional Archives",
-		"Imaginary Civic Systems",
-	],
-	socialLinks: [
-		{
-			label: "Sample repository",
-			href: "https://example.com/mira-latticewell/repository",
-			icon: "i-mdi:github",
-		},
-		{
-			label: "Sample notes",
-			href: "https://example.com/mira-latticewell/notes",
-			icon: "i-mdi:bookshelf",
-		},
-		{
-			label: "Sample archive",
-			href: "https://example.com/mira-latticewell/archive",
-			icon: "i-mdi:tag-outline",
-		},
-	],
-
-	// Footer display: links are hidden by default for a quieter academic layout.
-	footer: {
-		showProfileLinks: false, // Set true to show the social links above in the footer.
-		showAuthor: true, // Set false to show the copyright line without the author name.
-	},
-
-	// Optional: omit any entry to use the concise academic default copy.
-	pageTitles: {
-		about: {
-			description:
-				"A fictional academic background created solely to demonstrate profile, experience, service, and award layouts.",
-		},
-		researches: {
-			description:
-				"Fictional publications attributed to Mira Latticewell for demonstrating scholarly records and citation tools.",
-		},
-		projects: {
-			description:
-				"Fictional research tools and imaginary infrastructure projects created for this theme demo.",
-		},
-		teaching: {
-			description:
-				"Fictional courses showing how teaching records, terms, and materials appear in the theme.",
-		},
-		posts: {
-			description:
-				"Fictional notes from the Mira Latticewell demo profile.",
-		},
-	},
-
-	// Homepage composition: switch off any block you do not want to display.
-	homeBlocks: {
-		hero: { enabled: true },
-		showcase: {
-			enabled: true,
-			title: "Fictional Initiatives",
-			description: "Imaginary systems and prototype research infrastructure",
-		},
-		publications: {
-			enabled: true,
-			description: "Selected fictional publications",
-		},
-		posts: { enabled: true, description: "Notes from a fictional practice" },
-	},
+  author: "Danyang Chen",
+  title: "Danyang Chen · 陈丹阳",
+  siteUrl: "https://danieldanyang.github.io",
+  description: "Danyang Chen (陈丹阳), an undergraduate at CUHK-Shenzhen working on machine learning systems, GPU communication, and LLM infrastructure.",
+  keywords: ["Danyang Chen", "陈丹阳", "ML systems", "GPU communication", "LLM infrastructure"],
+  hero: {
+    headline: "Building efficient systems for machine learning.",
+    subheadline: "I am an undergraduate in Computer Science at The Chinese University of Hong Kong, Shenzhen. My interests lie in machine learning systems, with a focus on GPU communication, distributed training, and LLM serving. I contribute to UCCL and study how GPU fabrics shape system performance.",
+    profileImage: "/profile.svg",
+    profileAlt: "DC monogram for Danyang Chen",
+  },
+  affiliations: [{ role: "Undergraduate", institution: "CUHK-Shenzhen" }],
+  researchInterests: ["GPU Communication", "Distributed Training", "LLM Serving"],
+  socialLinks: [
+    { label: "GitHub", href: "https://github.com/DanielDanyang", icon: "i-mdi:github" },
+    { label: "Email", href: "mailto:danyangchen@link.cuhk.edu.cn", icon: "i-mdi:email-outline" },
+  ],
+  navLinks: [
+    { href: "/", label: "Home" },
+    { href: "/researches/", label: "Publications" },
+    { href: "/projects/", label: "Projects" },
+    { href: "/about/", label: "About" },
+    { href: "/personal/", label: "Personal" },
+  ],
+  footer: { showAuthor: true, showProfileLinks: false },
+  pageTitles: {
+    about: { title: "About", description: "A little about my academic background and research experience." },
+    researches: { title: "Publications", description: "Research on GPU fabrics and machine learning systems." },
+    projects: { title: "Projects", description: "Selected research and open-source contributions." },
+  },
+  homeBlocks: {
+    hero: { enabled: true },
+    showcase: { enabled: true, title: "Selected Projects", description: "Research & open source" },
+    publications: { enabled: true, title: "Selected Publication", description: "GPU fabrics and LLM systems" },
+    posts: { enabled: false },
+  },
 });
-
 export default siteConfig;

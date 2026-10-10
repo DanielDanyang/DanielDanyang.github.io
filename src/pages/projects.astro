@@ -15,12 +15,12 @@ const labels = {
     description: "Ongoing research, infrastructure, and collaborative initiatives.",
   },
   past: {
-    title: "Past projects",
-    description: "Completed work and earlier lines of inquiry.",
+    title: "Research",
+    description: "Selected research projects.",
   },
   unspecified: {
-    title: "Other projects",
-    description: "Selected experiments, tools, and community contributions.",
+    title: "Open source",
+    description: "Contributions to shared ML systems infrastructure.",
   },
 };
 const groups = statuses.map((status) => ({
@@ -44,7 +44,7 @@ const pageDescription = siteConfig.pageTitles.projects.description ||
         total={projects.length}
         items={groups.map((group) => ({
           filter: group.status,
-          label: group.status === "unspecified" ? "other" : group.status,
+          label: group.status === "unspecified" ? "Open source" : group.status === "past" ? "Research" : "Active",
           count: group.projects.length,
           icon: group.status === "active" ? "i-mdi:rocket-launch" : group.status === "past" ? "i-mdi:archive" : "i-mdi:folder-open",
         }))}
@@ -86,7 +86,7 @@ const pageDescription = siteConfig.pageTitles.projects.description ||
                       <div class="flex items-center gap-2">
                         <span class={isActive ? "chip-status-active" : "chip-status-past"}>
                           {isActive && <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true" />}
-                          {project.data.status}
+                          {project.data.status === "unspecified" ? "Open source" : "Research"}
                         </span>
                         {isFeatured && (
                           <span class="chip-accent text-[11px]">
@@ -125,7 +125,7 @@ const pageDescription = siteConfig.pageTitles.projects.description ||
                         class="entry-title text-xl transition-colors group-hover:text-accent-700 dark:group-hover:text-accent-300"
                         transition:name={`project-${project.id}-title`}
                       >
-                        <a href={`/projects/${project.id}`} class="no-underline text-inherit">
+                        <a href={`/projects/${project.id}/`} class="no-underline text-inherit">
                           {project.data.title}
                         </a>
                       </h3>
@@ -161,7 +161,7 @@ const pageDescription = siteConfig.pageTitles.projects.description ||
                     </div>
 
                     <a
-                      href={`/projects/${project.id}`}
+                      href={`/projects/${project.id}/`}
                       class="action-link text-xs font-semibold px-0 group-hover:text-accent-900 dark:group-hover:text-accent-100"
                     >
                       <span>View details</span>
