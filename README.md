@@ -1,6 +1,6 @@
 # Danyang Chen · 陈丹阳
 
-首页、简历式「经历」页与个人页。基于 [Scholar Pages](https://github.com/jxpeng98/astro-theme-scholars)（MIT）。
+首页（包含完整简历式 Experience）与个人页。基于 [Scholar Pages](https://github.com/jxpeng98/astro-theme-scholars)（MIT）。
 
 目标网址：https://danieldanyang.github.io/
 
@@ -18,7 +18,7 @@ pnpm dev
 - `site.config.ts`：姓名、简介、研究方向、联系方式、导航。
 - `src/data/publications.bib`：论文。
 - `src/data/about.yml`：教育、经历、助教与荣誉；研究经历的 `project` 对应项目文件名。
-- `src/pages/experience.astro`：统一展示教育、论文、实习、研究/开源项目、助教与荣誉。
+- `src/components/ExperienceContent.astro`：在首页展示教育、论文、实习、研究/开源项目、助教与荣誉。
 - `src/content/projects/*.md`：项目。
 - `src/pages/personal.astro`：个人分页面。
 - `public/profile.jpg`：首页个人照片。

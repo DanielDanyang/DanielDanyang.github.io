@@ -1,5 +1,4 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import PageJumpNav from "../components/PageJumpNav.astro";
 import PublicationList from "../components/PublicationList.astro";
 import { getCollection } from "astro:content";
@@ -30,10 +29,9 @@ const sections = [
 ];
 ---
 
-<Layout title="经历 · Experience" description="Education, publications, internships, and research projects of Danyang Chen.">
-  <div class="page-stack cv-page">
+<section id="experience" aria-labelledby="experience-heading" class="page-stack cv-page scroll-mt-24">
     <header class="page-header">
-      <h1 class="page-title">经历 <span class="text-ink-500 dark:text-paper-400">· Experience</span></h1>
+      <h2 id="experience-heading" class="page-title">Experience</h2>
       <p class="page-description">Education, publications, internships, and research.</p>
     </header>
     <PageJumpNav items={sections} />
@@ -113,8 +111,7 @@ const sections = [
         <ul class="cv-bullets">{honors.map((item) => <li>{typeof item === "string" ? item : item.title}</li>)}</ul>
       </section>
     </div>
-  </div>
-</Layout>
+</section>
 
 <style>
   .cv-sections { display: grid; gap: 3rem; }

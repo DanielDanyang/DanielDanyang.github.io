@@ -10,9 +10,10 @@ export default defineConfig({
 	site: withTrailingSlash(siteConfig.siteUrl),
 	trailingSlash: "always",
   redirects: {
-    "/about/": "/experience/",
-    "/researches/": "/experience/#publications",
-    "/projects/": "/experience/#research",
+    "/experience/": "/#experience",
+    "/about/": "/#experience",
+    "/researches/": "/#publications",
+    "/projects/": "/#research",
   },
 	integrations: [sitemap(), mdx()],
 	vite: {
