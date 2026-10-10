@@ -11,12 +11,11 @@ import duel from "../assets/personal/football-duel.jpg";
 <Layout title="Personal" description="Anime, places, and life on the football pitch.">
   <div class="page-stack personal-page">
     <header class="page-header">
-      <h1 class="page-title">Personal</h1>
-      <p class="page-description">Away from the keyboard.</p>
-      <div class="personal-motto">
-        <p class="body-copy" lang="zh-CN">我的座右铭：“纵然现实是理想主义的悲歌”</p>
-        <p class="body-copy" lang="en">My motto: “Even if reality is an elegy for idealism.”</p>
+      <div class="personal-title-row">
+        <h1 class="page-title">Personal</h1>
+        <p class="page-description">Away from the keyboard.</p>
       </div>
+      <p class="body-copy personal-motto"><em>Even if reality is an elegy for idealism. <span lang="zh-CN">（纵然现实是理想主义的悲歌）</span></em></p>
     </header>
 
     <section id="anime" aria-labelledby="anime-heading" class="personal-section">
@@ -61,8 +60,9 @@ import duel from "../assets/personal/football-duel.jpg";
 
 <style>
   .personal-page { gap: 3.5rem; }
-  .personal-motto { display: grid; gap: .35rem; margin-top: 1.25rem; }
-  .personal-motto p { margin: 0; text-wrap: pretty; }
+  .personal-title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.25rem; }
+  .personal-title-row .page-description { margin: 0; }
+  .personal-motto { margin: 1.25rem 0 0; text-wrap: pretty; }
   .personal-section { border-top: 1px solid #d9d5c9; padding-top: 2rem; scroll-margin-top: 6rem; }
   :global(.dark) .personal-section { border-color: #434844; }
   .anime-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.5fr); gap: 3rem; align-items: center; }
