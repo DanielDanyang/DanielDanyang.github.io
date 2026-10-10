@@ -15,7 +15,6 @@ const research = experience.filter((entry) => entry.project === "uccl" || entry.
   ...entry,
   projectRecord: projects.find((project) => project.id === entry.project),
 }));
-const education = cv.education ?? [];
 const service = cv.service ?? [];
 ---
 
@@ -25,19 +24,6 @@ const service = cv.service ?? [];
     </header>
 
     <div class="cv-sections">
-      <section id="education" class="cv-section">
-        <h2 class="section-heading cv-heading">Education</h2>
-        {education.map((entry) => (
-          <article class="cv-entry">
-            <div class="cv-row">
-              <h3 class="entry-title text-lg">{entry.institution}</h3>
-              <p class="cv-date">{entry.year}</p>
-            </div>
-            <p class="body-copy mt-1">{entry.degree}</p>
-          </article>
-        ))}
-      </section>
-
       <section id="industry" class="cv-section">
         <h2 class="section-heading cv-heading">Industry Experience</h2>
         {industry.map((entry) => (

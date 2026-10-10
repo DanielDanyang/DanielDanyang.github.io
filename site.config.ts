@@ -8,18 +8,18 @@ export const siteConfig = defineSiteConfig({
   keywords: ["Danyang Chen", "陈丹阳", "large-scale pretraining infrastructure", "WeLM", "Tencent WXG"],
   hero: {
     headline: "Working on large-scale pretraining infrastructure.",
-    subheadline: "I am currently working on large-scale pretraining infrastructure. I am a WeLM pretraining infrastructure intern at Tencent WXG (WeChat Group). This summer, I interned on video generation pretraining infrastructure at Kling.",
+    subheadline: "I am a fourth-year undergraduate at CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen), currently working on large-scale pretraining infrastructure. I am a WeLM pretraining infrastructure intern at Tencent WXG (WeChat Group), following a summer internship in video generation pretraining infrastructure at Kling.",
     profileImage: "/profile.jpg",
     profileImageWidth: 413,
     profileImageHeight: 531,
     profileAlt: "Portrait of Danyang Chen",
   },
-  affiliations: [{ role: "Undergraduate", department: "Computer Science", institution: "CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen)" }],
+  affiliations: [{ role: "Undergraduate at", institution: "CUHK-Shenzhen" }],
   researchInterests: [],
   socialLinks: [
     { label: "GitHub", href: "https://github.com/DanielDanyang", icon: "i-mdi:github" },
     { label: "Email", href: "mailto:danyangchen@link.cuhk.edu.cn", icon: "i-mdi:email-outline" },
-    { label: "知乎", href: "https://www.zhihu.com/people/daniel-87-41-57", icon: "i-mdi:link-variant" },
+    { label: "Zhihu", href: "https://www.zhihu.com/people/daniel-87-41-57", icon: "i-mdi:link-variant" },
   ],
   navLinks: [
     { href: "/", label: "Home" },

@@ -10,11 +10,6 @@ profile:
   - label: Contact
     value: danyangchen@link.cuhk.edu.cn
 
-education:
-  - degree: Bachelor in Computer Science and Engineering
-    institution: CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen)
-    year: 2023–2027 (expected)
-
 experience:
   - role: WeLM Pretraining Infrastructure Intern
     organization: Tencent WXG (WeChat Group)
