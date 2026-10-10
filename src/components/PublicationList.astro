@@ -34,6 +34,7 @@ const { papers } = Astro.props;
                   <>
                     {index > 0 && ", "}
                     {author === "Danyang Chen" ? <strong class="own-author">{author}</strong> : author}
+                    {paper.id === "chen2026gpuweaver" && ["Danyang Chen", "Yufeng Gu"].includes(author) && <sup class="author-marker">*</sup>}
                   </>
                 ))}
               </p>
@@ -56,5 +57,6 @@ const { papers } = Astro.props;
   .pdf-link { display: inline-flex; align-items: center; gap: .25rem; margin-left: .25rem; padding: .2rem .4rem; border: 1px solid var(--glass-control-border); border-radius: .4rem; background: var(--glass-control); font-family: sans-serif; font-size: .75rem; font-weight: 600; line-height: 1.4; vertical-align: middle; white-space: nowrap; color: inherit; text-decoration: none; }
   .pdf-link:hover { text-decoration: underline; }
   .own-author { color: var(--color-ink-900, #202521); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  .author-marker { position: relative; top: -.5em; margin-left: .05em; font-size: .75em; line-height: 0; vertical-align: baseline; }
   :global(.dark) .own-author { color: #f5f3ed; }
 </style>
