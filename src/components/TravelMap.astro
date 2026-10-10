@@ -1,10 +1,10 @@
 ---
 import { china } from "@esmjs/geo";
-import { geoMercator, geoNaturalEarth1, geoPath } from "d3-geo";
+import { geoCentroid, geoMercator, geoNaturalEarth1, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { Feature, FeatureCollection, Geometry } from "geojson";
 import type { Topology, GeometryCollection } from "topojson-specification";
-import worldTopology from "world-atlas/countries-110m.json";
+import worldTopology from "world-atlas/countries-50m.json";
 import visits from "../data/travel.json";
 
 const englishNames: Record<string, string> = {
@@ -27,11 +27,15 @@ const chinaPath = geoPath(geoMercator().fitExtent([[20, 20], [900, 540]], provin
 const topology = worldTopology as unknown as Topology<{ countries: GeometryCollection<{ name: string }> }>;
 const countries = feature(topology, topology.objects.countries).features.filter((f) => f.properties?.name !== "Antarctica");
 const worldCollection: FeatureCollection = { type: "FeatureCollection", features: countries };
-const worldPath = geoPath(geoNaturalEarth1().fitExtent([[15, 20], [905, 520]], worldCollection));
+const worldProjection = geoNaturalEarth1().fitExtent([[15, 20], [905, 520]], worldCollection);
+const worldPath = geoPath(worldProjection);
+// Singapore needs a marker to stay visible at this scale.
+const singapore = countries.find((f) => String(f.id) === "702")!;
+const singaporePoint = worldProjection(geoCentroid(singapore))!;
 const provinceVisits = new Set<string>(visits.provinces);
 const countryVisits = new Set<string>(visits.countries);
 const provinceCount = provinces.filter((f) => provinceVisits.has(String(f.properties?.adcode))).length;
-const countryCount = countries.filter((f) => String(f.id) !== "156" && countryVisits.has(String(f.id))).length;
+const countryCount = new Set(countries.filter((f) => String(f.id) !== "156" && countryVisits.has(String(f.id))).map((f) => String(f.id))).size;
 ---
 
 <div class="travel-map" data-travel-map>
@@ -56,11 +60,12 @@ const countryCount = countries.filter((f) => String(f.id) !== "156" && countryVi
   <div id="world-panel" role="tabpanel" aria-labelledby="world-tab" data-map-panel="world" hidden>
     <div class="map-caption"><span>Around the world</span><span>{countryCount} countries visited abroad</span></div>
     <svg viewBox="0 0 920 560" role="group" aria-label="World travel map by country" class="map-svg">
-      {countries.map((f) => {
+      {countries.filter((f) => String(f.id) !== "702").map((f) => {
         const name = String(f.properties?.name);
         const visited = countryVisits.has(String(f.id));
         return <path d={worldPath(f) ?? ""} class:list={["map-region", { visited }]} tabindex="0" role="img" aria-label={`${name}: ${visited ? "Visited" : "Not visited yet"}`} data-region-name={name} data-region-visited={String(visited)}><title>{name}</title></path>;
       })}
+      <circle cx={singaporePoint[0]} cy={singaporePoint[1]} r="4" class:list={["map-region", { visited: countryVisits.has("702") }]} tabindex="0" role="img" aria-label={`Singapore: ${countryVisits.has("702") ? "Visited" : "Not visited yet"}`} data-region-name="Singapore" data-region-visited={String(countryVisits.has("702"))}><title>Singapore</title></circle>
     </svg>
   </div>
   <p class="map-status" data-map-status aria-live="polite">Hover over a region to see its name.</p>
@@ -123,7 +128,7 @@ const countryCount = countries.filter((f) => String(f.id) !== "156" && countryVi
           select(tabs[index]); tabs[index].focus();
         });
       });
-      root.querySelectorAll<SVGPathElement>("[data-region-name]").forEach((region) => {
+      root.querySelectorAll<SVGElement>("[data-region-name]").forEach((region) => {
         const show = () => { if (status) status.textContent = `${region.dataset.regionName} · ${region.dataset.regionVisited === "true" ? "Visited" : "Not visited yet"}`; };
         region.addEventListener("pointerenter", show); region.addEventListener("focus", show);
         region.addEventListener("click", show);
