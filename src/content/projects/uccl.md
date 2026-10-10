@@ -1,7 +1,7 @@
 ---
 title: UCCL
 subtitle: Communication infrastructure for machine learning
-summary: Open-source GPU communication infrastructure. My contributions span expert-parallel transport, point-to-point communication, and integration with the wider ML systems ecosystem.
+summary: Open-source GPU communication infrastructure. My contributions span expert-parallel transport and point-to-point communication.
 status: unspecified
 period: 2025–2026
 order: 1

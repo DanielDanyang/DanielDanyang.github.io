@@ -19,24 +19,18 @@ experience:
   - role: WeLM Pretraining Infrastructure Intern
     organization: Tencent WXG (WeChat Group)
     period: Current
-    bullets:
-      - Working on large-scale pretraining infrastructure.
-  - role: Pretraining Infrastructure Intern
+  - role: Video Generation Pretraining Infrastructure Intern
     organization: Kling
     period: Summer 2026
   - role: Core Contributor
     organization: UCCL
     project: uccl
-    period: September 2025–June 2026
     bullets:
       - Contributed to expert-parallel communication and point-to-point GPU transport.
       - Worked on GPUDirectTCPX and NIXL integration.
   - role: Undergraduate Researcher
     organization: CUHK-Shenzhen
     project: gpuweaver
-    period: January–May 2026
-    bullets:
-      - Advised by Yunming Xiao; studied GPU fabric contention and scheduling for LLM systems.
 
 service:
   - role: Teaching Assistant — Operating Systems

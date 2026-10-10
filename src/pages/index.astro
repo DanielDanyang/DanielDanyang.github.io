@@ -29,7 +29,6 @@ const about = {
 const affiliations = siteConfig.affiliations || [];
 const researchInterests = siteConfig.researchInterests || [];
 const statusBadge = siteConfig.hero.statusBadge;
-const headline = siteConfig.hero.headline || about.name;
 const profileAlt = siteConfig.hero.profileAlt || about.name;
 ---
 
@@ -113,16 +112,12 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
         </aside>
 
         <div class="min-w-0 lg:col-start-1 lg:row-start-2">
-          <p class="max-w-[38rem] font-heading text-[1.5rem] font-medium leading-[1.25] tracking-[-0.015em] text-ink-900 dark:text-paper-100 sm:text-[1.75rem]">
-            {headline}
+          <h2 id="about-heading" class="page-title">About me</h2>
+          <p class="mt-5 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
+            {about.bio}
           </p>
-
-
-		  <p class="mt-5 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
-			{about.bio}
-		  </p>
           <p class="mt-4 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
-            During my undergraduate studies, I have been fortunate to be advised by{" "}
+            During my undergraduate studies, I have been very fortunate to be advised by{" "}
             <a href="https://yangzhou1997.github.io/" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-700 underline decoration-accent-300 underline-offset-4 dark:text-accent-300 dark:decoration-accent-700">Yang Zhou</a>{" "}and{" "}
             <a href="https://yunmingxiao.github.io/" target="_blank" rel="noopener noreferrer" class="font-semibold text-accent-700 underline decoration-accent-300 underline-offset-4 dark:text-accent-300 dark:decoration-accent-700">Yunming Xiao</a>.
           </p>

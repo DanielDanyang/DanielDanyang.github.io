@@ -1,5 +1,4 @@
 ---
-import PageJumpNav from "../components/PageJumpNav.astro";
 import PublicationList from "../components/PublicationList.astro";
 import { getCollection } from "astro:content";
 import { getAllPapers } from "../lib/papers";
@@ -18,22 +17,27 @@ const research = experience.filter((entry) => entry.project === "uccl" || entry.
 }));
 const education = cv.education ?? [];
 const service = cv.service ?? [];
-const sections = [
-  { href: "#industry", label: "Industry Experience" },
-  { href: "#research", label: "Academic Experience" },
-  { href: "#education", label: "Education" },
-  { href: "#teaching", label: "Teaching" },
-];
 ---
 
 <section id="experience" aria-labelledby="experience-heading" class="page-stack cv-page scroll-mt-24">
     <header class="page-header">
       <h2 id="experience-heading" class="page-title">Experience</h2>
-      <p class="page-description">Industry and academic experience.</p>
     </header>
-    <PageJumpNav items={sections} />
 
     <div class="cv-sections">
+      <section id="education" class="cv-section">
+        <h2 class="section-heading cv-heading">Education</h2>
+        {education.map((entry) => (
+          <article class="cv-entry">
+            <div class="cv-row">
+              <h3 class="entry-title text-lg">{entry.institution}</h3>
+              <p class="cv-date">{entry.year}</p>
+            </div>
+            <p class="body-copy mt-1">{entry.degree}</p>
+          </article>
+        ))}
+      </section>
+
       <section id="industry" class="cv-section">
         <h2 class="section-heading cv-heading">Industry Experience</h2>
         {industry.map((entry) => (
@@ -54,9 +58,8 @@ const sections = [
           <article id={entry.project === "gpuweaver" ? "publications" : undefined} class:list={["cv-entry scroll-mt-24", entry.project === "gpuweaver" && "cv-publications"]}>
             <div class="cv-row">
               <h3 class="entry-title text-lg">{entry.projectRecord?.data.title ?? entry.organization}</h3>
-              <p class="cv-date">{entry.period}</p>
             </div>
-            <p class="body-copy mt-1">{entry.role}{entry.projectRecord && entry.organization !== entry.projectRecord.data.title && <> · {entry.organization}</>}</p>
+            <p class="body-copy mt-1">{entry.role}</p>
             {entry.project === "gpuweaver" ? <PublicationList papers={papers} /> : entry.projectRecord && <p class="body-copy mt-2 text-sm">{entry.projectRecord.data.summary}</p>}
             {entry.bullets?.length && <ul class="cv-bullets">{entry.bullets.map((bullet) => <li>{bullet}</li>)}</ul>}
             {entry.projectRecord && entry.project !== "gpuweaver" && (
@@ -64,19 +67,6 @@ const sections = [
                 {entry.projectRecord.data.links.map((link) => <a class="action-link px-0 text-xs" href={link.href} target="_blank" rel="noopener noreferrer">{link.label}<span class="i-mdi:open-in-new text-xs" aria-hidden="true"></span></a>)}
               </div>
             )}
-          </article>
-        ))}
-      </section>
-
-      <section id="education" class="cv-section">
-        <h2 class="section-heading cv-heading">Education</h2>
-        {education.map((entry) => (
-          <article class="cv-entry">
-            <div class="cv-row">
-              <h3 class="entry-title text-lg">{entry.institution}</h3>
-              <p class="cv-date">{entry.year}</p>
-            </div>
-            <p class="body-copy mt-1">{entry.degree}</p>
           </article>
         ))}
       </section>
