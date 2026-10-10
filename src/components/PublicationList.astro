@@ -10,11 +10,11 @@ const { papers } = Astro.props;
 
 <ol
   data-publication-list
-  class="m-0 list-none overflow-hidden rounded-xl border border-paper-300/90 bg-white/70 p-0 divide-y divide-paper-300/90 shadow-paper dark:border-ink-700 dark:bg-ink-900/65 dark:divide-ink-700"
+  class="publication-list m-0 list-none rounded-xl border border-paper-300/90 bg-white/70 p-0 shadow-paper dark:border-ink-700 dark:bg-ink-900/65"
 >
   {papers.map((paper) => (
     <li>
-      <article class="group px-4 py-4.5 transition-colors duration-200 hover:bg-accent-50/50 dark:hover:bg-accent-950/20 sm:px-6 sm:py-5">
+      <article class="group px-4 transition-colors duration-200 hover:bg-accent-50/50 dark:hover:bg-accent-950/20 sm:px-6">
         <div class="min-w-0 space-y-2.5">
           <div class="space-y-1">
             <h3 class="entry-title text-[1.1875rem]">
@@ -52,6 +52,7 @@ const { papers } = Astro.props;
 </ol>
 
 <style>
+  .publication-list { display: grid; gap: 2rem; margin-top: 1.25rem; }
   .pdf-link { display: inline-flex; align-items: center; gap: .25rem; margin-left: .25rem; padding: .2rem .4rem; border: 1px solid var(--glass-control-border); border-radius: .4rem; background: var(--glass-control); font-family: sans-serif; font-size: .75rem; font-weight: 600; line-height: 1.4; vertical-align: middle; white-space: nowrap; color: inherit; text-decoration: none; }
   .pdf-link:hover { text-decoration: underline; }
   .own-author { color: var(--color-ink-900, #202521); font-weight: 700; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }

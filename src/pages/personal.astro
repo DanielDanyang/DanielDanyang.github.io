@@ -1,19 +1,67 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import TravelMap from "../components/TravelMap.astro";
+import anime from "../assets/personal/anime.jpg";
+import champions from "../assets/personal/football-champions.jpg";
+import match from "../assets/personal/football-match.jpg";
+import pass from "../assets/personal/football-pass.jpg";
+import duel from "../assets/personal/football-duel.jpg";
 ---
-<Layout title="Personal" description="A small corner for life beyond research.">
-  <div class="page-stack">
+<Layout title="Personal" description="Anime, places, and life on the football pitch.">
+  <div class="page-stack personal-page">
     <header class="page-header">
-      <p class="eyebrow">Personal · 工作之外</p>
-      <h1 class="page-title">Beyond research</h1>
-      <p class="page-description">A small corner for life beyond research.</p>
+      <h1 class="page-title">Personal</h1>
+      <p class="page-description">Away from the keyboard.</p>
     </header>
-    <section class="surface-card max-w-3xl space-y-5 p-6 sm:p-8">
-      <span class="i-ph-coffee text-3xl text-accent-600 dark:text-accent-300" aria-hidden="true"></span>
-      <h2 class="section-heading">Hello, I’m Danyang.</h2>
-      <p class="body-copy" lang="zh-CN">这里留给工作之外的生活，慢慢补充。</p>
-      <p class="body-copy">This space will grow with personal notes, moments, and things I enjoy.</p>
-      <a href="/" class="action-link px-0">Back to my academic homepage <span class="i-ph-arrow-right" aria-hidden="true"></span></a>
+
+    <section id="anime" aria-labelledby="anime-heading" class="personal-section">
+      <div class="anime-layout">
+        <Image src={anime} alt="An anime illustration from my collection" width={420} format="webp" class="anime-photo" />
+        <div>
+          <p class="eyebrow">01 / Anime</p>
+          <h2 id="anime-heading" class="section-heading">Anime</h2>
+          <p class="body-copy mt-4">My favorite character is <strong>Setsuna Ogiso <span lang="ja">(小木曽雪菜)</span></strong>.</p>
+          <p class="body-copy mt-3">My favorite work is <em>White Album 2</em>.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="travel" aria-labelledby="travel-heading" class="personal-section">
+      <p class="eyebrow">02 / Travel</p>
+      <h2 id="travel-heading" class="section-heading">Travel</h2>
+      <TravelMap />
+    </section>
+
+    <section id="football" aria-labelledby="football-heading" class="personal-section">
+      <p class="eyebrow">03 / Football</p>
+      <h2 id="football-heading" class="section-heading">Football</h2>
+      <p class="body-copy mt-4 max-w-3xl">I play as a defensive midfielder. As a regular starter for my college team, I helped us win the university championship.</p>
+      <div class="football-gallery">
+        <Image src={champions} alt="Our college team celebrating with the championship trophy" width={1280} format="webp" class="champions-photo" />
+        <Image src={match} alt="A moment from a university football match" width={760} format="webp" class="match-photo" />
+        <Image src={pass} alt="Playing a pass during a university football match" width={760} format="webp" class="pass-photo" />
+        <Image src={duel} alt="Competing for the ball during a university football match" width={760} format="webp" class="duel-photo" />
+      </div>
     </section>
   </div>
 </Layout>
+
+<style>
+  .personal-page { gap: 3.5rem; }
+  .personal-section { border-top: 1px solid #d9d5c9; padding-top: 2rem; scroll-margin-top: 6rem; }
+  :global(.dark) .personal-section { border-color: #434844; }
+  .anime-layout { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.5fr); gap: 3rem; align-items: center; }
+  .anime-photo { width: 100%; max-width: 360px; height: auto; border-radius: 1rem; }
+  .football-gallery { display: grid; grid-template-columns: 1.08fr 1fr; gap: 1rem; margin-top: 1.75rem; }
+  .football-gallery img { width: 100%; height: auto; border-radius: .8rem; }
+  .champions-photo { grid-column: 1 / -1; }
+  .football-gallery .match-photo { grid-column: 1; grid-row: 2; height: 100%; object-fit: cover; }
+  .football-gallery .pass-photo { grid-column: 1; grid-row: 3; height: 100%; object-fit: cover; }
+  .football-gallery .duel-photo { grid-column: 2; grid-row: 2 / 4; height: 100%; object-fit: cover; }
+  @media (max-width: 639px) {
+    .anime-layout { grid-template-columns: 1fr; gap: 1.5rem; }
+    .anime-photo { max-width: 280px; }
+    .football-gallery { gap: .65rem; }
+  }
+</style>

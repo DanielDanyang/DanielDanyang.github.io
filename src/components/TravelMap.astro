@@ -1,0 +1,135 @@
+---
+import { china } from "@esmjs/geo";
+import { geoMercator, geoNaturalEarth1, geoPath } from "d3-geo";
+import { feature } from "topojson-client";
+import type { Feature, FeatureCollection, Geometry } from "geojson";
+import type { Topology, GeometryCollection } from "topojson-specification";
+import worldTopology from "world-atlas/countries-110m.json";
+import visits from "../data/travel.json";
+
+const englishNames: Record<string, string> = {
+  "110000": "Beijing", "120000": "Tianjin", "130000": "Hebei", "140000": "Shanxi", "150000": "Inner Mongolia",
+  "210000": "Liaoning", "220000": "Jilin", "230000": "Heilongjiang", "310000": "Shanghai", "320000": "Jiangsu",
+  "330000": "Zhejiang", "340000": "Anhui", "350000": "Fujian", "360000": "Jiangxi", "370000": "Shandong",
+  "410000": "Henan", "420000": "Hubei", "430000": "Hunan", "440000": "Guangdong", "450000": "Guangxi",
+  "460000": "Hainan", "500000": "Chongqing", "510000": "Sichuan", "520000": "Guizhou", "530000": "Yunnan",
+  "540000": "Tibet", "610000": "Shaanxi", "620000": "Gansu", "630000": "Qinghai", "640000": "Ningxia",
+  "650000": "Xinjiang", "710000": "Taiwan", "810000": "Hong Kong", "820000": "Macao",
+};
+const provinces = structuredClone(china).features.filter((f) => Boolean(f.properties.name)) as Feature<Geometry>[];
+// d3's spherical polygons use the opposite winding to this GeoJSON source.
+for (const f of provinces) {
+  if (f.geometry.type === "Polygon") f.geometry.coordinates.forEach((ring) => ring.reverse());
+  if (f.geometry.type === "MultiPolygon") f.geometry.coordinates.forEach((polygon) => polygon.forEach((ring) => ring.reverse()));
+}
+const provinceCollection: FeatureCollection = { type: "FeatureCollection", features: provinces };
+const chinaPath = geoPath(geoMercator().fitExtent([[20, 20], [900, 540]], provinceCollection));
+const topology = worldTopology as unknown as Topology<{ countries: GeometryCollection<{ name: string }> }>;
+const countries = feature(topology, topology.objects.countries).features.filter((f) => f.properties?.name !== "Antarctica");
+const worldCollection: FeatureCollection = { type: "FeatureCollection", features: countries };
+const worldPath = geoPath(geoNaturalEarth1().fitExtent([[15, 20], [905, 520]], worldCollection));
+const provinceVisits = new Set<string>(visits.provinces);
+const countryVisits = new Set<string>(visits.countries);
+const provinceCount = provinces.filter((f) => provinceVisits.has(String(f.properties?.adcode))).length;
+const countryCount = countries.filter((f) => String(f.id) !== "156" && countryVisits.has(String(f.id))).length;
+---
+
+<div class="travel-map" data-travel-map>
+  <div class="map-toolbar">
+    <div class="map-tabs" role="tablist" aria-label="Travel map view">
+      <button type="button" id="china-tab" role="tab" aria-selected="true" aria-controls="china-panel" data-map-tab="china">China <span>Provinces</span></button>
+      <button type="button" id="world-tab" role="tab" aria-selected="false" aria-controls="world-panel" tabindex="-1" data-map-tab="world">World <span>Countries</span></button>
+    </div>
+    <div class="map-legend"><span class="legend-dot visited-dot"></span>Visited <span class="legend-dot"></span>Not visited yet</div>
+  </div>
+  <div id="china-panel" role="tabpanel" aria-labelledby="china-tab" data-map-panel="china">
+    <div class="map-caption"><span>Across China</span><span>{provinceCount} / 34 provincial-level regions</span></div>
+    <svg viewBox="0 0 920 560" role="group" aria-label="China travel map by provincial-level region" class="map-svg">
+      {provinces.map((f) => {
+        const code = String(f.properties?.adcode);
+        const visited = provinceVisits.has(code);
+        const name = `${englishNames[code]} · ${f.properties?.name}`;
+        return <path d={chinaPath(f) ?? ""} class:list={["map-region", { visited }]} tabindex="0" role="img" aria-label={`${name}: ${visited ? "Visited" : "Not visited yet"}`} data-region-name={name} data-region-visited={String(visited)}><title>{name}</title></path>;
+      })}
+    </svg>
+  </div>
+  <div id="world-panel" role="tabpanel" aria-labelledby="world-tab" data-map-panel="world" hidden>
+    <div class="map-caption"><span>Around the world</span><span>{countryCount} countries visited abroad</span></div>
+    <svg viewBox="0 0 920 560" role="group" aria-label="World travel map by country" class="map-svg">
+      {countries.map((f) => {
+        const name = String(f.properties?.name);
+        const visited = countryVisits.has(String(f.id));
+        return <path d={worldPath(f) ?? ""} class:list={["map-region", { visited }]} tabindex="0" role="img" aria-label={`${name}: ${visited ? "Visited" : "Not visited yet"}`} data-region-name={name} data-region-visited={String(visited)}><title>{name}</title></path>;
+      })}
+    </svg>
+  </div>
+  <p class="map-status" data-map-status aria-live="polite">Hover over a region to see its name.</p>
+  <details class="map-credits"><summary>Map credits</summary><p>China: <a href="https://github.com/esmjs/geo" target="_blank" rel="noopener noreferrer">esmjs/geo</a> (MIT). World: <a href="https://github.com/topojson/world-atlas" target="_blank" rel="noopener noreferrer">World Atlas</a> (ISC), based on Natural Earth.</p></details>
+</div>
+
+<style>
+  .travel-map { margin-top: 1.5rem; padding: 1.25rem; border: 1px solid #d9d5c9; border-radius: 1rem; background: #f1f4f0; }
+  .map-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; }
+  .map-tabs { display: flex; gap: .35rem; padding: .25rem; border-radius: .6rem; background: #e2e7df; }
+  .map-tabs button { padding: .6rem .9rem; border-radius: .4rem; color: #33483c; font-weight: 600; cursor: pointer; min-height: 44px; }
+  .map-tabs button span { margin-left: .3rem; font-weight: 400; font-size: .8rem; }
+  .map-tabs button[aria-selected="true"] { background: #fffdf8; box-shadow: 0 1px 4px #26372a15; }
+  .map-tabs button:focus-visible { outline: 2px solid #426653; outline-offset: 2px; }
+  .map-legend { display: flex; align-items: center; gap: .5rem; color: #667267; font-size: .75rem; }
+  .legend-dot { width: .65rem; height: .65rem; border-radius: 50%; background: #d5ded2; }
+  .legend-dot.visited-dot { background: #3b6a54; }
+  .map-caption { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.75rem; font-size: .8125rem; color: #677368; }
+  .map-caption span:first-child { font-weight: 600; color: #33483c; }
+  .map-svg { width: 100%; height: auto; display: block; max-height: 520px; }
+  .map-region { fill: #d5ded2; stroke: #fffdf8; stroke-width: 1; vector-effect: non-scaling-stroke; transition: fill .15s; }
+  .map-region.visited { fill: #3b6a54; }
+  .map-region:hover, .map-region:focus-visible { fill: #a4b9a4; stroke: #3b6a54; stroke-width: 1.5; outline: none; }
+  .map-region.visited:hover, .map-region.visited:focus-visible { fill: #254c3a; }
+  .map-status { margin: .5rem 0 0; min-height: 1.5rem; font-size: .8125rem; color: #536456; }
+  .map-credits { margin-top: 1rem; font-size: .7rem; color: #7c847c; }
+  .map-credits summary { cursor: pointer; }
+  .map-credits p { margin-top: .5rem; }
+  .map-credits a { text-decoration: underline; }
+  [hidden] { display: none !important; }
+  :global(.dark) .travel-map { background: #202b25; border-color: #434844; }
+  :global(.dark) .map-tabs { background: #303d34; }
+  :global(.dark) .map-tabs button, :global(.dark) .map-caption span:first-child { color: #dde8da; }
+  :global(.dark) .map-tabs button[aria-selected="true"] { background: #465a4b; }
+  :global(.dark) .map-region { fill: #526454; stroke: #202b25; }
+  :global(.dark) .map-region.visited { fill: #94bb95; }
+  :global(.dark) .map-status, :global(.dark) .map-caption, :global(.dark) .map-legend { color: #b4c1b4; }
+  @media(max-width: 639px) { .travel-map { padding: 1rem .75rem; } .map-caption { font-size: .7rem; } .map-tabs button span { display: none; } }
+</style>
+
+<script>
+  function setupTravelMaps() {
+    document.querySelectorAll<HTMLElement>("[data-travel-map]").forEach((root) => {
+      if (root.dataset.bound) return;
+      root.dataset.bound = "true";
+      const tabs = [...root.querySelectorAll<HTMLButtonElement>("[data-map-tab]")];
+      const panels = [...root.querySelectorAll<HTMLElement>("[data-map-panel]")];
+      const status = root.querySelector<HTMLElement>("[data-map-status]");
+      const select = (tab: HTMLButtonElement) => {
+        tabs.forEach((item) => { item.setAttribute("aria-selected", String(item === tab)); item.tabIndex = item === tab ? 0 : -1; });
+        panels.forEach((panel) => { panel.hidden = panel.dataset.mapPanel !== tab.dataset.mapTab; });
+        if (status) status.textContent = "Hover over a region to see its name.";
+      };
+      tabs.forEach((tab, i) => {
+        tab.addEventListener("click", () => select(tab));
+        tab.addEventListener("keydown", (event) => {
+          if (!["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) return;
+          event.preventDefault();
+          const index = event.key === "Home" ? 0 : event.key === "End" ? tabs.length - 1 : (i + (event.key === "ArrowRight" ? 1 : -1) + tabs.length) % tabs.length;
+          select(tabs[index]); tabs[index].focus();
+        });
+      });
+      root.querySelectorAll<SVGPathElement>("[data-region-name]").forEach((region) => {
+        const show = () => { if (status) status.textContent = `${region.dataset.regionName} · ${region.dataset.regionVisited === "true" ? "Visited" : "Not visited yet"}`; };
+        region.addEventListener("pointerenter", show); region.addEventListener("focus", show);
+        region.addEventListener("click", show);
+      });
+    });
+  }
+  setupTravelMaps();
+  document.addEventListener("astro:page-load", setupTravelMaps);
+</script>
