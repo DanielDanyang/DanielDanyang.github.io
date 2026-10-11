@@ -18,7 +18,7 @@ links:
   - label: Repository
     href: https://github.com/uccl-project/uccl
   - label: Contributions
-    href: https://github.com/uccl-project/uccl/graphs/contributors
+    href: https://github.com/uccl-project/uccl/commits/main/?author=DanielDanyang
 ---
 
 ## My contributions
