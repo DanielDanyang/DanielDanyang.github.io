@@ -832,8 +832,11 @@ function isActiveNav(href: string): boolean {
 
     <script>
       import { setupLayoutUi } from "../scripts/layout-ui";
+      import { setupAnalytics } from "../scripts/analytics";
+      import { goatCounterEndpoint } from "../data/analytics";
 
       document.addEventListener("astro:page-load", setupLayoutUi);
+      setupAnalytics(goatCounterEndpoint);
     </script>
   </body>
 </html>
