@@ -8,7 +8,7 @@ export const siteConfig = defineSiteConfig({
   keywords: ["Danyang Chen", "陈丹阳", "large-scale pretraining infrastructure", "WeLM", "Tencent WeChat Group"],
   hero: {
     headline: "Working on large-scale pretraining infrastructure.",
-    subheadline: "I am a fourth-year undergraduate at CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen), currently working on large-scale pretraining infrastructure. I am a WeLM pretraining infrastructure intern at Tencent WeChat Group, following a summer internship in video generation pretraining infrastructure at Kling.",
+    subheadline: "I am a fourth-year undergraduate at CUHK-Shenzhen (The Chinese University of Hong Kong, Shenzhen), currently working on large-scale pretraining infrastructure. I am a WeLM pretraining infrastructure intern at Tencent WeChat Group, following a summer internship in video generation pretraining infrastructure at Kling AI.",
     profileImage: "/profile.jpg",
     profileImageWidth: 413,
     profileImageHeight: 531,

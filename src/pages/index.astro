@@ -114,8 +114,8 @@ const profileAlt = siteConfig.hero.profileAlt || about.name;
         <section id="about" aria-labelledby="about-heading" class="min-w-0 lg:col-start-1 lg:row-start-2">
           <h2 id="about-heading" class="page-title">About me</h2>
           <p class="mt-5 max-w-[65ch] text-[1.0625rem] leading-7 text-ink-700 dark:text-paper-300">
-            {about.bio.split(/(WeLM|Kling)/g).map((part) =>
-              part === "WeLM" || part === "Kling" ? (
+            {about.bio.split(/(WeLM|Kling AI)/g).map((part) =>
+              part === "WeLM" || part === "Kling AI" ? (
                 <a
                   href={part === "WeLM" ? "https://welm.weixin.qq.com/en/" : "https://kling.ai/"}
                   target="_blank"

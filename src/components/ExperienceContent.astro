@@ -10,7 +10,7 @@ const cv = aboutDataSchema.parse(parse(aboutRaw));
 const projects = await getCollection("projects", ({ data }) => !data.draft);
 const papers = getAllPapers();
 const experience = cv.experience ?? [];
-const industry = experience.filter((entry) => entry.organization?.startsWith("Tencent") || entry.organization === "Kling");
+const industry = experience.filter((entry) => entry.organization?.startsWith("Tencent") || entry.organization === "Kling AI");
 const research = experience.filter((entry) => entry.project === "uccl" || entry.project === "gpuweaver").sort((a, b) => (a.project === "uccl" ? 0 : 1) - (b.project === "uccl" ? 0 : 1)).map((entry) => ({
   ...entry,
   projectRecord: projects.find((project) => project.id === entry.project),
